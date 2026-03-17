@@ -3,22 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nabil Irza Prawira | Official Mod Forge</title>
+    <title>Nabil Irza Prawira | Official Mod Forge V5</title>
     <style>
         /* ==========================================
-           OFFICIAL WEBSITE - NABIL IRZA PRAWIRA V4.0
-           Theme: Columbia Cryo Genshin UX UI Upgrade
+           OFFICIAL WEBSITE - NABIL IRZA PRAWIRA V5.0
+           Theme: Eternity-Cryo (Raiden Ei x Columbina)
            ========================================== */
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Rajdhani:wght@500;700&display=swap');
         
         :root {
-            --bg-dark: #02050a;
-            --bg-light: #07132b;
-            --accent: #7ac1f0;
-            --accent-glow: #a4dbff;
-            --text-main: #d6f2ff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(122, 193, 240, 0.25);
+            --bg-dark: #030108;
+            --bg-light: #0d071a;
+            --electro-main: #b829ff;
+            --electro-glow: #e0b0ff;
+            --cryo-main: #7ac1f0;
+            --cryo-glow: #d6f2ff;
+            --text-main: #e8dbff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(184, 41, 255, 0.3);
         }
 
         body {
@@ -32,9 +34,336 @@
         }
 
         /* -----------------------------------
-           GENSHIN STYLE LOADING SCREEN
+           MUSOU ISSHIN LOADING SCREEN
            ----------------------------------- */
-        #genshin-loader {
+        #musou-loader {
+            position: fixed; inset: 0;
+            background: #000; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+            overflow: hidden;
+        }
+        
+        /* Animasi Tebasan Pedang */
+        .slash-container {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .slash-line {
+            width: 0; height: 3px; background: #fff;
+            box-shadow: 0 0 20px var(--electro-main), 0 0 40px var(--electro-glow), 0 0 60px #fff;
+            transform: rotate(-25deg);
+            animation: drawMusou 1.2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes drawMusou {
+            0% { width: 0; opacity: 1; }
+            40% { width: 150vw; opacity: 1; box-shadow: 0 0 40px var(--electro-main), 0 0 80px #fff; }
+            80% { opacity: 0.8; box-shadow: 0 0 100px var(--cryo-main); background: var(--cryo-glow);}
+            100% { width: 150vw; opacity: 0; }
+        }
+
+        .load-text-container { position: relative; z-index: 2; margin-top: 100px; text-align: center; }
+        .load-text {
+            font-family: 'Cinzel', serif; font-size: 20px; color: var(--electro-glow);
+            text-transform: uppercase; letter-spacing: 4px;
+            text-shadow: 0 0 15px var(--electro-main);
+            animation: pulseText 1.5s infinite;
+        }
+        .load-subtext { font-size: 14px; color: var(--cryo-main); margin-top: 10px; letter-spacing: 2px; }
+
+        @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 25px var(--electro-glow); } }
+
+        /* CANVAS PARTICLES */
+        #eternity-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+
+        /* -----------------------------------
+           TOP NAVIGATION (STICKY MENU)
+           ----------------------------------- */
+        .nav-container {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(13, 7, 26, 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex; justify-content: center; gap: 15px; padding: 15px 20px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+        }
+        .nav-btn {
+            background: transparent; color: var(--cryo-main);
+            border: 1px solid transparent; font-family: 'Cinzel', serif; font-size: 15px;
+            font-weight: bold; letter-spacing: 2px; padding: 10px 20px;
+            border-radius: 4px; cursor: pointer; transition: 0.3s; text-transform: uppercase;
+            position: relative; overflow: hidden;
+        }
+        .nav-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--electro-glow)); transition: 0.4s;
+        }
+        .nav-btn:hover::before, .nav-btn.active::before { left: 0; }
+        .nav-btn:hover, .nav-btn.active { color: #fff; text-shadow: 0 0 10px var(--electro-glow); }
+
+        /* HEADER */
+        header { text-align: center; padding: 60px 20px 40px; position: relative; }
+        header h1 {
+            font-family: 'Cinzel', serif; font-size: 42px; margin: 0;
+            color: #fff; text-shadow: 0 0 15px var(--electro-main), 0 0 35px var(--electro-glow);
+            letter-spacing: 5px;
+        }
+        header p { font-size: 17px; color: var(--cryo-main); margin-top: 10px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; }
+
+        /* SWORD DIVIDER */
+        .sword-divider {
+            width: 80%; max-width: 400px; height: 2px; margin: 20px auto;
+            background: linear-gradient(90deg, transparent, var(--electro-main), #fff, var(--electro-main), transparent);
+            box-shadow: 0 0 15px var(--electro-main); border-radius: 50%;
+        }
+
+        .container { max-width: 1050px; margin: 0 auto 50px auto; padding: 0 20px; }
+        .section-title {
+            font-family: 'Cinzel', serif; font-size: 26px; color: #fff;
+            border-bottom: 2px solid var(--electro-main); display: inline-block;
+            margin-bottom: 30px; padding-bottom: 8px; text-shadow: 0 0 12px var(--electro-main);
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* TABS LOGIC */
+        .tab-content { display: none; animation: fadeInUp 0.5s ease forwards; }
+        .tab-content.active { display: block; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* -----------------------------------
+           MODULE CARDS (THE FORGE)
+           ----------------------------------- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.6) 100%);
+            border: 1px solid var(--glass-border); border-radius: 4px 20px 4px 20px; /* Sharp sword edges */
+            padding: 30px; backdrop-filter: blur(15px); transition: 0.4s;
+            box-shadow: inset 0 0 20px rgba(184, 41, 255, 0.05), 0 10px 30px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column; position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(184,41,255,0.1) 0%, transparent 60%);
+            opacity: 0; transition: 0.5s; pointer-events: none;
+        }
+        .card:hover::before { opacity: 1; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(184, 41, 255, 0.2); border-color: var(--electro-glow); }
+        
+        .card h3 { font-family: 'Cinzel', serif; font-size: 24px; color: #fff; margin: 0 0 10px 0; text-shadow: 0 0 10px rgba(184,41,255,0.5);}
+        
+        .badge { 
+            background: rgba(122, 193, 240, 0.1); border: 1px solid rgba(122, 193, 240, 0.5);
+            color: var(--cryo-main); padding: 5px 12px; border-radius: 4px; 
+            font-size: 12px; font-weight: bold; margin-bottom: 20px; display: inline-block; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .badge.new { background: rgba(184, 41, 255, 0.15); border-color: var(--electro-main); color: var(--electro-glow); animation: pulseBadge 2s infinite alternate; }
+        @keyframes pulseBadge { 0% { box-shadow: 0 0 5px rgba(184, 41, 255, 0.2); } 100% { box-shadow: 0 0 15px rgba(184, 41, 255, 0.6); } }
+
+        .card p { font-size: 15px; line-height: 1.7; color: #d6f2ff; margin-bottom: 25px; flex-grow: 1; }
+
+        .btn-download {
+            display: block; text-align: center; text-decoration: none;
+            background: rgba(184, 41, 255, 0.1); color: #fff; border: 1px solid var(--glass-border);
+            padding: 14px; border-radius: 4px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px;
+            letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; margin-top: auto;
+            position: relative; overflow: hidden;
+        }
+        .btn-download:hover { background: rgba(184, 41, 255, 0.3); box-shadow: 0 0 25px var(--electro-main); border-color: #fff; text-shadow: 0 0 8px #fff;}
+
+        /* -----------------------------------
+           TESTED MODULE (SYSTEM COMPATIBILITY)
+           ----------------------------------- */
+        .tested-box {
+            margin-top: 60px; padding: 30px; border-radius: 8px;
+            background: linear-gradient(90deg, rgba(0,0,0,0.8), rgba(184, 41, 255, 0.1), rgba(0,0,0,0.8));
+            border-top: 1px solid var(--electro-main); border-bottom: 1px solid var(--electro-main);
+            text-align: center;
+        }
+        .tested-box h3 { font-family: 'Cinzel', serif; color: var(--electro-glow); font-size: 22px; margin: 0 0 20px 0; letter-spacing: 2px;}
+        .os-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .os-badge {
+            background: rgba(255,255,255,0.05); border: 1px dashed var(--cryo-main);
+            color: #fff; padding: 10px 20px; font-weight: bold; border-radius: 4px;
+            letter-spacing: 1px; font-size: 15px;
+            box-shadow: 0 0 10px rgba(122, 193, 240, 0.1); transition: 0.3s;
+        }
+        .os-badge:hover { background: rgba(122, 193, 240, 0.2); transform: scale(1.05); box-shadow: 0 0 20px var(--cryo-main); border-color: #fff;}
+
+        /* -----------------------------------
+           AUTHOR DATA TAB
+           ----------------------------------- */
+        .author-box { text-align: center; padding: 50px 20px; border-color: rgba(184, 41, 255, 0.5); }
+        .author-name { font-family: 'Cinzel', serif; font-size: 36px; color: #fff; margin: 0 0 5px 0; text-shadow: 0 0 20px var(--electro-main); }
+        .author-flag { font-size: 18px; color: var(--cryo-glow); margin-bottom: 25px; letter-spacing: 2px;}
+        .author-bio { font-size: 16px; color: #d6f2ff; max-width: 750px; margin: 0 auto 35px auto; line-height: 1.8; }
+        
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 550px; margin: 0 auto 40px auto; }
+        .btn-social { padding: 15px; border-radius: 4px;}
+        .btn-tg { border-color: #3b82f6; color: #93c5fd; } .btn-tg:hover { background: rgba(59, 130, 246, 0.2); border-color: #fff; color: #fff; box-shadow: 0 0 25px #3b82f6; }
+        .btn-ig { border-color: #ec4899; color: #f9a8d4; } .btn-ig:hover { background: rgba(236, 72, 153, 0.2); border-color: #fff; color: #fff; box-shadow: 0 0 25px #ec4899; }
+
+        .credits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left; }
+        .credit-card { border-left: 3px solid var(--electro-main); background: rgba(0,0,0,0.5); border-radius: 0 8px 8px 0; padding: 20px;}
+        .credit-card h4 { font-family: 'Cinzel', serif; color: #fff; margin: 0 0 10px 0; font-size: 18px; text-shadow: 0 0 5px var(--electro-main);}
+        .credit-card p { margin: 0; font-size: 14px; color: var(--cryo-glow); line-height: 1.6;}
+
+        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--glass-border); font-size: 14px; color: var(--electro-glow); letter-spacing: 2px; text-transform: uppercase; background: rgba(0,0,0,0.5);}
+
+        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg-dark); } ::-webkit-scrollbar-thumb { background: var(--electro-main); }
+    </style>
+</head>
+<body>
+
+    <div id="musou-loader">
+        <div class="slash-container">
+            <div class="slash-line"></div>
+        </div>
+        <div class="load-text-container">
+            <div class="load-text" id="loader-txt">Drawing Musou Isshin...</div>
+            <div class="load-subtext">Initializing Eternity Core</div>
+        </div>
+    </div>
+
+    <canvas id="eternity-canvas"></canvas>
+
+    <div class="nav-container">
+        <button class="nav-btn active" onclick="switchTab('forge')">✦ The Forge</button>
+        <button class="nav-btn" onclick="switchTab('author')">✦ Author Data</button>
+    </div>
+
+    <header>
+        <h1>@N4BILIRZ FORGE</h1>
+        <div class="sword-divider"></div>
+        <p>Advanced Android Optimization Core</p>
+    </header>
+
+    <div class="container">
+        
+        <div id="tab-forge" class="tab-content active">
+            <h2 class="section-title">⚔️ Module Archives</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Magic Random Pro V14</h3>
+                    <div class="badge new">Aether Core • Masterpiece</div>
+                    <p>An evolutionary leap with ART Compiler Turbo, full Hardware Acceleration, and Auto SQLite Vacuum. Guaranteed Zero Error 255 in any Custom Recovery!</p>
+                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/raw/refs/heads/main/Magic_Random-Module-V14%20(New)%20_Aether-Core.zip" class="btn-download">⬇️ Download V14.zip</a>
+                </div>
+                <div class="card">
+                    <h3>Magic Random Pro V13</h3>
+                    <div class="badge">Quantum Velocity</div>
+                    <p>Brings TCP Westwood optimization for ultimate network stability, and advanced ZRAM LZ4 tuning for limitless multitasking performance.</p>
+                    <a href="https://github.com/mnabilirzaprawira-ops/Module-file/raw/refs/heads/main/Magic_Random-Pro-V13%20Quantum%20Velocity.zip" class="btn-download">⬇️ Download V13.zip</a>
+                </div>
+                <div class="card">
+                    <h3>Magic Random Pro V12</h3>
+                    <div class="badge">Titanium Core Stable</div>
+                    <p>The foundation of stability. Focused on aggressive Touch Responsiveness and reducing input lag during heavy system rendering.</p>
+                    <a href="https://github.com/mnabilirzaprawira-ops/Module-file/raw/refs/heads/main/Magic_Random-Pro-V12%20Titanium%20Core.zip" class="btn-download">⬇️ Download V12.zip</a>
+                </div>
+                <div class="card">
+                    <h3>Magic Random Pro V11</h3>
+                    <div class="badge">Pro Stable</div>
+                    <p>The classic version that set the standard for MRP's solid performance. Extremely lightweight, battery-friendly, and perfect for daily use.</p>
+                    <a href="https://github.com/mnabilirzaprawira-ops/Module-file/raw/refs/heads/main/Magic_Random-Pro-V11%20Pro%20Stable.zip" class="btn-download">⬇️ Download V11.zip</a>
+                </div>
+            </div>
+
+            <div class="tested-box">
+                <h3>⚙️ Tested Module Compatibility</h3>
+                <p style="color: var(--cryo-main); margin-bottom: 20px; font-size: 15px;">Semua modul Forge telah melalui uji coba ekstrem di berbagai arsitektur Android. Stabil, aman, dan mematikan.</p>
+                <div class="os-grid">
+                    <div class="os-badge">Android 10</div>
+                    <div class="os-badge">Android 12</div>
+                    <div class="os-badge">Android 13</div>
+                    <div class="os-badge">Android 14</div>
+                    <div class="os-badge">Android 15</div>
+                    <div class="os-badge" style="border-color: var(--electro-main); color: var(--electro-glow); box-shadow: 0 0 15px var(--electro-main);">Android 16 (PixelOS)</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-author" class="tab-content">
+            <div class="card author-box">
+                <h2 class="author-name">Nabil Irza Prawira</h2>
+                <div class="author-flag">Based in Indonesia 🇮🇩</div>
+                <div class="sword-divider" style="margin-bottom: 25px;"></div>
+                <p class="author-bio">
+                    "I am a beginner developer just stepping into the massive realm of Android Root Modules. While I may be new, my passion for pushing hardware limits is absolute. I build these modules to learn, to optimize, and to share performance enhancements with the community."
+                </p>
+
+                <div class="social-grid">
+                    <a href="https://t.me/official_grup_nabil" target="_blank" class="btn-download btn-tg">💬 Join Telegram Group</a>
+                    <a href="https://www.instagram.com/n4bilirzap_?igsh=MTNrbGwwNnc5ODk4bQ==" target="_blank" class="btn-download btn-ig">📸 Follow Instagram</a>
+                </div>
+
+                <h2 class="section-title" style="font-size: 22px;">🤝 Hall of Fame</h2>
+                <div class="credits-grid">
+                    <div class="credit-card">
+                        <h4>✦ Gemini (AI)</h4>
+                        <p>The sole collaborator. My AI Co-Pilot for coding structure, logic creation, and UI/UX design architecture.</p>
+                    </div>
+                    <div class="credit-card">
+                        <h4>✦ Sundar Pichai</h4>
+                        <p>The visionary CEO behind Google, for creating Gemini and making this level of AI collaboration possible.</p>
+                    </div>
+                    <div class="credit-card">
+                        <h4>✦ TopJohnWu & Chainfire</h4>
+                        <p>The absolute legends and creators of Magisk & SuperSU. Without them, the systemless root module scene wouldn't exist.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Nabil Irza Prawira (@n4bilirz). All rights reserved.<br>
+        Inazuma Shines Eternal. Respect the Doves of Fatui.
+    </footer>
+
+    <script>
+        // --- MUSOU ISSHIN LOADER LOGIC ---
+        window.addEventListener('load', () => {
+            const loaderTxt = document.getElementById('loader-txt');
+            
+            // Ganti teks pas pedang menebas
+            setTimeout(() => {
+                loaderTxt.innerHTML = "Awakening Cryo...";
+                loaderTxt.style.color = "var(--cryo-glow)";
+                loaderTxt.style.textShadow = "0 0 15px var(--cryo-main)";
+            }, 800);
+
+            // Sembunyikan loader
+            setTimeout(() => {
+                const loader = document.getElementById('musou-loader');
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 800);
+            }, 1800);
+        });
+
+        // --- TAB SWITCH LOGIC ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- ETERNITY CRYO PARTICLES ANIMATION ---
+        const canvas = document.getElementById('eternity-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        wi        #genshin-loader {
             position: fixed; inset: 0;
             background: #02050a; z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
