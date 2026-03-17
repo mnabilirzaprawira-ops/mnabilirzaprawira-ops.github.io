@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nabil Irza Prawira | Official Mod Forge V5</title>
+    <title>Nabil Irza Prawira | Official Mod Forge</title>
     <style>
         /* ==========================================
            OFFICIAL WEBSITE - NABIL IRZA PRAWIRA V5.0
@@ -13,13 +13,13 @@
         
         :root {
             --bg-dark: #030108;
-            --bg-light: #0d071a;
-            --electro-main: #b829ff;
-            --electro-glow: #e0b0ff;
-            --cryo-main: #7ac1f0;
-            --cryo-glow: #d6f2ff;
-            --text-main: #e8dbff;
-            --glass-bg: rgba(255, 255, 255, 0.03);
+            --bg-light: #120822;
+            --cryo-light: #d6f2ff;
+            --cryo-mid: #7ac1f0;
+            --electro-light: #e0b0ff;
+            --electro-mid: #b829ff;
+            --electro-glow: #d94dff;
+            --glass-bg: rgba(255, 255, 255, 0.04);
             --glass-border: rgba(184, 41, 255, 0.3);
         }
 
@@ -27,104 +27,82 @@
             margin: 0; padding: 0;
             background: radial-gradient(circle at top center, var(--bg-light), var(--bg-dark) 80%);
             background-attachment: fixed;
-            color: var(--text-main);
+            color: var(--cryo-light);
             font-family: 'Rajdhani', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
         /* -----------------------------------
-           MUSOU ISSHIN LOADING SCREEN
+           MUSOU ISSHIN X CRYO LOADING SCREEN
            ----------------------------------- */
         #musou-loader {
             position: fixed; inset: 0;
             background: #000; z-index: 9999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.8s ease-out, visibility 0.8s;
-            overflow: hidden;
+            transition: opacity 1s ease-out, visibility 1s;
         }
-        
-        /* Animasi Tebasan Pedang */
-        .slash-container {
-            position: absolute; width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-        }
+        .slash-container { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .slash-line {
-            width: 0; height: 3px; background: #fff;
-            box-shadow: 0 0 20px var(--electro-main), 0 0 40px var(--electro-glow), 0 0 60px #fff;
+            width: 0%; height: 4px; background: #fff;
+            box-shadow: 0 0 20px 5px var(--electro-glow), 0 0 50px 10px var(--electro-mid);
             transform: rotate(-25deg);
-            animation: drawMusou 1.2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+            animation: slashStrike 2s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
         }
-        
-        @keyframes drawMusou {
-            0% { width: 0; opacity: 1; }
-            40% { width: 150vw; opacity: 1; box-shadow: 0 0 40px var(--electro-main), 0 0 80px #fff; }
-            80% { opacity: 0.8; box-shadow: 0 0 100px var(--cryo-main); background: var(--cryo-glow);}
-            100% { width: 150vw; opacity: 0; }
+        .cryo-flash {
+            position: absolute; inset: 0; background: var(--cryo-light); opacity: 0; mix-blend-mode: overlay;
+            animation: cryoBurst 2.5s ease-out forwards;
         }
-
-        .load-text-container { position: relative; z-index: 2; margin-top: 100px; text-align: center; }
         .load-text {
-            font-family: 'Cinzel', serif; font-size: 20px; color: var(--electro-glow);
-            text-transform: uppercase; letter-spacing: 4px;
-            text-shadow: 0 0 15px var(--electro-main);
+            position: absolute; bottom: 20%; font-family: 'Cinzel', serif; font-size: 18px; color: var(--electro-light);
+            text-transform: uppercase; letter-spacing: 4px; text-shadow: 0 0 10px var(--electro-mid);
             animation: pulseText 1.5s infinite;
         }
-        .load-subtext { font-size: 14px; color: var(--cryo-main); margin-top: 10px; letter-spacing: 2px; }
 
-        @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 25px var(--electro-glow); } }
+        @keyframes slashStrike { 0% { width: 0%; opacity: 0; } 30% { width: 150%; opacity: 1; } 80% { opacity: 1; height: 4px; box-shadow: 0 0 20px 5px var(--electro-glow); } 100% { height: 0px; opacity: 0; } }
+        @keyframes cryoBurst { 0%, 50% { opacity: 0; } 60% { opacity: 0.8; background: var(--cryo-light); } 100% { opacity: 0; } }
+        @keyframes pulseText { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-        /* CANVAS PARTICLES */
+        /* CANVAS BACKGROUND */
         #eternity-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+
+        /* -----------------------------------
+           KATANA DIVIDER (MUSOU ISSHIN MOTIF)
+           ----------------------------------- */
+        .katana-divider {
+            width: 100%; height: 2px; margin: 40px 0; position: relative;
+            background: linear-gradient(90deg, transparent, var(--electro-mid), #fff, var(--cryo-mid), transparent);
+            box-shadow: 0 0 15px var(--electro-mid);
+        }
+        .katana-divider::after {
+            content: '✦'; position: absolute; left: 50%; top: -12px; transform: translateX(-50%);
+            color: #fff; font-size: 20px; text-shadow: 0 0 10px var(--cryo-mid);
+        }
 
         /* -----------------------------------
            TOP NAVIGATION (STICKY MENU)
            ----------------------------------- */
         .nav-container {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(13, 7, 26, 0.85);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            display: flex; justify-content: center; gap: 15px; padding: 15px 20px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+            background: rgba(18, 8, 34, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border);
+            display: flex; justify-content: center; gap: 15px; padding: 15px 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.7);
         }
         .nav-btn {
-            background: transparent; color: var(--cryo-main);
-            border: 1px solid transparent; font-family: 'Cinzel', serif; font-size: 15px;
-            font-weight: bold; letter-spacing: 2px; padding: 10px 20px;
-            border-radius: 4px; cursor: pointer; transition: 0.3s; text-transform: uppercase;
-            position: relative; overflow: hidden;
+            background: transparent; color: var(--electro-light); border: 1px solid transparent;
+            font-family: 'Cinzel', serif; font-size: 15px; font-weight: bold; letter-spacing: 2px; padding: 10px 20px;
+            border-radius: 8px; cursor: pointer; transition: 0.3s; text-transform: uppercase;
         }
-        .nav-btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--electro-glow)); transition: 0.4s;
+        .nav-btn:hover, .nav-btn.active {
+            border-color: var(--electro-mid); color: #fff; background: rgba(184, 41, 255, 0.15); box-shadow: 0 0 15px rgba(184, 41, 255, 0.4);
         }
-        .nav-btn:hover::before, .nav-btn.active::before { left: 0; }
-        .nav-btn:hover, .nav-btn.active { color: #fff; text-shadow: 0 0 10px var(--electro-glow); }
 
         /* HEADER */
-        header { text-align: center; padding: 60px 20px 40px; position: relative; }
-        header h1 {
-            font-family: 'Cinzel', serif; font-size: 42px; margin: 0;
-            color: #fff; text-shadow: 0 0 15px var(--electro-main), 0 0 35px var(--electro-glow);
-            letter-spacing: 5px;
-        }
-        header p { font-size: 17px; color: var(--cryo-main); margin-top: 10px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; }
+        header { text-align: center; padding: 50px 20px 20px; position: relative; }
+        header h1 { font-family: 'Cinzel', serif; font-size: 42px; margin: 0; color: #fff; text-shadow: 0 0 15px var(--electro-mid), 0 0 35px var(--electro-glow); letter-spacing: 5px; }
+        header p { font-size: 17px; color: var(--cryo-mid); margin-top: 10px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* SWORD DIVIDER */
-        .sword-divider {
-            width: 80%; max-width: 400px; height: 2px; margin: 20px auto;
-            background: linear-gradient(90deg, transparent, var(--electro-main), #fff, var(--electro-main), transparent);
-            box-shadow: 0 0 15px var(--electro-main); border-radius: 50%;
-        }
-
-        .container { max-width: 1050px; margin: 0 auto 50px auto; padding: 0 20px; }
-        .section-title {
-            font-family: 'Cinzel', serif; font-size: 26px; color: #fff;
-            border-bottom: 2px solid var(--electro-main); display: inline-block;
-            margin-bottom: 30px; padding-bottom: 8px; text-shadow: 0 0 12px var(--electro-main);
-            text-transform: uppercase; letter-spacing: 2px;
-        }
+        .container { max-width: 1000px; margin: 0 auto 50px auto; padding: 0 20px; }
+        .section-title { font-family: 'Cinzel', serif; font-size: 26px; color: #fff; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 12px var(--electro-light); text-align: center; margin-bottom: 30px;}
 
         /* TABS LOGIC */
         .tab-content { display: none; animation: fadeInUp 0.5s ease forwards; }
@@ -134,83 +112,66 @@
         /* -----------------------------------
            MODULE CARDS (THE FORGE)
            ----------------------------------- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         .card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.6) 100%);
-            border: 1px solid var(--glass-border); border-radius: 4px 20px 4px 20px; /* Sharp sword edges */
-            padding: 30px; backdrop-filter: blur(15px); transition: 0.4s;
-            box-shadow: inset 0 0 20px rgba(184, 41, 255, 0.05), 0 10px 30px rgba(0,0,0,0.8);
-            display: flex; flex-direction: column; position: relative; overflow: hidden;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.6));
+            border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px; backdrop-filter: blur(15px); transition: 0.4s;
+            box-shadow: inset 0 0 20px rgba(184, 41, 255, 0.05), 0 10px 30px rgba(0,0,0,0.8); display: flex; flex-direction: column; position: relative;
         }
-        .card::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(184,41,255,0.1) 0%, transparent 60%);
-            opacity: 0; transition: 0.5s; pointer-events: none;
-        }
-        .card:hover::before { opacity: 1; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(184, 41, 255, 0.2); border-color: var(--electro-glow); }
-        
-        .card h3 { font-family: 'Cinzel', serif; font-size: 24px; color: #fff; margin: 0 0 10px 0; text-shadow: 0 0 10px rgba(184,41,255,0.5);}
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(184, 41, 255, 0.3); border-color: var(--electro-glow); }
+        .card h3 { font-family: 'Cinzel', serif; font-size: 22px; color: #fff; margin: 0 0 10px 0; text-shadow: 0 0 10px var(--electro-mid);}
         
         .badge { 
-            background: rgba(122, 193, 240, 0.1); border: 1px solid rgba(122, 193, 240, 0.5);
-            color: var(--cryo-main); padding: 5px 12px; border-radius: 4px; 
-            font-size: 12px; font-weight: bold; margin-bottom: 20px; display: inline-block; letter-spacing: 1px; text-transform: uppercase;
+            background: rgba(122, 193, 240, 0.15); border: 1px solid rgba(122, 193, 240, 0.5); color: var(--cryo-light); padding: 5px 10px; border-radius: 6px; 
+            font-size: 12px; font-weight: bold; margin-bottom: 15px; display: inline-block; letter-spacing: 1px; text-transform: uppercase;
         }
-        .badge.new { background: rgba(184, 41, 255, 0.15); border-color: var(--electro-main); color: var(--electro-glow); animation: pulseBadge 2s infinite alternate; }
-        @keyframes pulseBadge { 0% { box-shadow: 0 0 5px rgba(184, 41, 255, 0.2); } 100% { box-shadow: 0 0 15px rgba(184, 41, 255, 0.6); } }
+        .badge.new { background: rgba(184, 41, 255, 0.2); border-color: var(--electro-glow); color: #fff; animation: pulseBadge 2s infinite alternate; }
+        @keyframes pulseBadge { 0% { box-shadow: 0 0 5px rgba(184, 41, 255, 0.2); } 100% { box-shadow: 0 0 15px rgba(217, 77, 255, 0.6); } }
 
-        .card p { font-size: 15px; line-height: 1.7; color: #d6f2ff; margin-bottom: 25px; flex-grow: 1; }
+        .card p { font-size: 15px; line-height: 1.6; color: #b8e2ff; margin-bottom: 25px; flex-grow: 1; }
 
         .btn-download {
             display: block; text-align: center; text-decoration: none;
-            background: rgba(184, 41, 255, 0.1); color: #fff; border: 1px solid var(--glass-border);
-            padding: 14px; border-radius: 4px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px;
-            letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; margin-top: auto;
-            position: relative; overflow: hidden;
+            background: rgba(184, 41, 255, 0.1); color: #fff; border: 1px solid rgba(184, 41, 255, 0.5);
+            padding: 14px; border-radius: 8px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 14px;
+            letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; margin-top: auto;
         }
-        .btn-download:hover { background: rgba(184, 41, 255, 0.3); box-shadow: 0 0 25px var(--electro-main); border-color: #fff; text-shadow: 0 0 8px #fff;}
+        .btn-download:hover { background: rgba(184, 41, 255, 0.3); box-shadow: 0 0 20px var(--electro-mid); border-color: #fff; text-shadow: 0 0 5px #fff;}
 
         /* -----------------------------------
-           TESTED MODULE (SYSTEM COMPATIBILITY)
+           TESTED OS SECTION (NEW)
            ----------------------------------- */
-        .tested-box {
-            margin-top: 60px; padding: 30px; border-radius: 8px;
-            background: linear-gradient(90deg, rgba(0,0,0,0.8), rgba(184, 41, 255, 0.1), rgba(0,0,0,0.8));
-            border-top: 1px solid var(--electro-main); border-bottom: 1px solid var(--electro-main);
-            text-align: center;
+        .tested-box { margin-top: 50px; text-align: center; padding: 30px; border-radius: 16px; background: rgba(0,0,0,0.5); border: 1px dashed var(--cryo-mid); }
+        .tested-box h3 { font-family: 'Cinzel', serif; color: var(--cryo-light); margin: 0 0 20px 0; font-size: 20px; letter-spacing: 2px;}
+        .os-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .os-badge { 
+            background: rgba(122, 193, 240, 0.1); border: 1px solid var(--cryo-mid); color: #fff; padding: 10px 20px; 
+            border-radius: 8px; font-weight: bold; font-size: 16px; letter-spacing: 1px; box-shadow: 0 0 10px rgba(122, 193, 240, 0.2);
+            transition: 0.3s;
         }
-        .tested-box h3 { font-family: 'Cinzel', serif; color: var(--electro-glow); font-size: 22px; margin: 0 0 20px 0; letter-spacing: 2px;}
-        .os-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .os-badge {
-            background: rgba(255,255,255,0.05); border: 1px dashed var(--cryo-main);
-            color: #fff; padding: 10px 20px; font-weight: bold; border-radius: 4px;
-            letter-spacing: 1px; font-size: 15px;
-            box-shadow: 0 0 10px rgba(122, 193, 240, 0.1); transition: 0.3s;
-        }
-        .os-badge:hover { background: rgba(122, 193, 240, 0.2); transform: scale(1.05); box-shadow: 0 0 20px var(--cryo-main); border-color: #fff;}
+        .os-badge:hover { transform: scale(1.05); background: var(--cryo-mid); color: #000; box-shadow: 0 0 20px var(--cryo-light); }
 
         /* -----------------------------------
-           AUTHOR DATA TAB
+           AUTHOR DATA & ABOUT TAB
            ----------------------------------- */
-        .author-box { text-align: center; padding: 50px 20px; border-color: rgba(184, 41, 255, 0.5); }
-        .author-name { font-family: 'Cinzel', serif; font-size: 36px; color: #fff; margin: 0 0 5px 0; text-shadow: 0 0 20px var(--electro-main); }
-        .author-flag { font-size: 18px; color: var(--cryo-glow); margin-bottom: 25px; letter-spacing: 2px;}
-        .author-bio { font-size: 16px; color: #d6f2ff; max-width: 750px; margin: 0 auto 35px auto; line-height: 1.8; }
+        .author-box { text-align: center; padding: 40px 20px; border-color: rgba(184, 41, 255, 0.5); }
+        .author-name { font-family: 'Cinzel', serif; font-size: 32px; color: #fff; margin: 0 0 5px 0; text-shadow: 0 0 15px var(--electro-glow); }
+        .author-flag { font-size: 18px; color: #fff; margin-bottom: 20px; letter-spacing: 2px;}
+        .author-bio { font-size: 16px; color: #d6f2ff; max-width: 700px; margin: 0 auto 30px auto; line-height: 1.6; }
         
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 550px; margin: 0 auto 40px auto; }
-        .btn-social { padding: 15px; border-radius: 4px;}
-        .btn-tg { border-color: #3b82f6; color: #93c5fd; } .btn-tg:hover { background: rgba(59, 130, 246, 0.2); border-color: #fff; color: #fff; box-shadow: 0 0 25px #3b82f6; }
-        .btn-ig { border-color: #ec4899; color: #f9a8d4; } .btn-ig:hover { background: rgba(236, 72, 153, 0.2); border-color: #fff; color: #fff; box-shadow: 0 0 25px #ec4899; }
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 500px; margin: 0 auto 30px auto; }
+        .btn-social { padding: 12px; }
+        .btn-tg { border-color: #3b82f6; color: #93c5fd; } .btn-tg:hover { background: rgba(59, 130, 246, 0.2); border-color: #fff; color: #fff; box-shadow: 0 0 20px #3b82f6; }
+        .btn-ig { border-color: #ec4899; color: #f9a8d4; } .btn-ig:hover { background: rgba(236, 72, 153, 0.2); border-color: #fff; color: #fff; box-shadow: 0 0 20px #ec4899; }
 
         .credits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left; }
-        .credit-card { border-left: 3px solid var(--electro-main); background: rgba(0,0,0,0.5); border-radius: 0 8px 8px 0; padding: 20px;}
-        .credit-card h4 { font-family: 'Cinzel', serif; color: #fff; margin: 0 0 10px 0; font-size: 18px; text-shadow: 0 0 5px var(--electro-main);}
-        .credit-card p { margin: 0; font-size: 14px; color: var(--cryo-glow); line-height: 1.6;}
+        .credit-card { border-left: 3px solid var(--electro-mid); background: rgba(0,0,0,0.4); padding: 20px;}
+        .credit-card h4 { font-family: 'Cinzel', serif; color: #fff; margin: 0 0 8px 0; font-size: 18px; }
+        .credit-card p { margin: 0; font-size: 14px; color: #e0b0ff; line-height: 1.5;}
 
-        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--glass-border); font-size: 14px; color: var(--electro-glow); letter-spacing: 2px; text-transform: uppercase; background: rgba(0,0,0,0.5);}
+        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--glass-border); font-size: 14px; color: var(--electro-light); letter-spacing: 1px; }
 
-        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg-dark); } ::-webkit-scrollbar-thumb { background: var(--electro-main); }
+        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg-dark); } ::-webkit-scrollbar-thumb { background: var(--electro-mid); border-radius: 3px; }
     </style>
 </head>
 <body>
@@ -219,10 +180,8 @@
         <div class="slash-container">
             <div class="slash-line"></div>
         </div>
-        <div class="load-text-container">
-            <div class="load-text" id="loader-txt">Drawing Musou Isshin...</div>
-            <div class="load-subtext">Initializing Eternity Core</div>
-        </div>
+        <div class="cryo-flash"></div>
+        <div class="load-text">Establishing Eternity Link...</div>
     </div>
 
     <canvas id="eternity-canvas"></canvas>
@@ -234,14 +193,16 @@
 
     <header>
         <h1>@N4BILIRZ FORGE</h1>
-        <div class="sword-divider"></div>
-        <p>Advanced Android Optimization Core</p>
+        <p>Eternity-Cryo Advanced Core Optimization</p>
     </header>
 
     <div class="container">
         
         <div id="tab-forge" class="tab-content active">
-            <h2 class="section-title">⚔️ Module Archives</h2>
+            
+            <div class="katana-divider"></div>
+            <div class="section-title">Module Archives</div>
+
             <div class="grid">
                 <div class="card">
                     <h3>Magic Random Pro V14</h3>
@@ -269,25 +230,26 @@
                 </div>
             </div>
 
+            <div class="katana-divider" style="margin-top: 60px;"></div>
             <div class="tested-box">
-                <h3>⚙️ Tested Module Compatibility</h3>
-                <p style="color: var(--cryo-main); margin-bottom: 20px; font-size: 15px;">Semua modul Forge telah melalui uji coba ekstrem di berbagai arsitektur Android. Stabil, aman, dan mematikan.</p>
-                <div class="os-grid">
-                    <div class="os-badge">Android 10</div>
-                    <div class="os-badge">Android 12</div>
-                    <div class="os-badge">Android 13</div>
-                    <div class="os-badge">Android 14</div>
-                    <div class="os-badge">Android 15</div>
-                    <div class="os-badge" style="border-color: var(--electro-main); color: var(--electro-glow); box-shadow: 0 0 15px var(--electro-main);">Android 16 (PixelOS)</div>
+                <h3>✦ Verified OS Compatibility ✦</h3>
+                <p style="color: #b8e2ff; margin-bottom: 20px; font-size: 15px;">Modules in this forge have been deeply rigorously tested and guaranteed stable on the following Android systems:</p>
+                <div class="os-badges">
+                    <span class="os-badge">Android 10</span>
+                    <span class="os-badge">Android 12</span>
+                    <span class="os-badge">Android 13</span>
+                    <span class="os-badge">Android 14</span>
+                    <span class="os-badge">Android 15</span>
+                    <span class="os-badge">Android 16</span>
                 </div>
             </div>
         </div>
 
         <div id="tab-author" class="tab-content">
+            <div class="katana-divider"></div>
             <div class="card author-box">
                 <h2 class="author-name">Nabil Irza Prawira</h2>
                 <div class="author-flag">Based in Indonesia 🇮🇩</div>
-                <div class="sword-divider" style="margin-bottom: 25px;"></div>
                 <p class="author-bio">
                     "I am a beginner developer just stepping into the massive realm of Android Root Modules. While I may be new, my passion for pushing hardware limits is absolute. I build these modules to learn, to optimize, and to share performance enhancements with the community."
                 </p>
@@ -297,21 +259,23 @@
                     <a href="https://www.instagram.com/n4bilirzap_?igsh=MTNrbGwwNnc5ODk4bQ==" target="_blank" class="btn-download btn-ig">📸 Follow Instagram</a>
                 </div>
 
-                <h2 class="section-title" style="font-size: 22px;">🤝 Hall of Fame</h2>
+                <div class="katana-divider" style="margin: 40px 0;"></div>
+                <h2 class="section-title" style="font-size: 22px; text-shadow: 0 0 10px var(--cryo-mid);">🤝 Hall of Fame</h2>
                 <div class="credits-grid">
-                    <div class="credit-card">
+                    <div class="card credit-card">
                         <h4>✦ Gemini (AI)</h4>
                         <p>The sole collaborator. My AI Co-Pilot for coding structure, logic creation, and UI/UX design architecture.</p>
                     </div>
-                    <div class="credit-card">
+                    <div class="card credit-card">
                         <h4>✦ Sundar Pichai</h4>
                         <p>The visionary CEO behind Google, for creating Gemini and making this level of AI collaboration possible.</p>
                     </div>
-                    <div class="credit-card">
+                    <div class="card credit-card">
                         <h4>✦ TopJohnWu & Chainfire</h4>
                         <p>The absolute legends and creators of Magisk & SuperSU. Without them, the systemless root module scene wouldn't exist.</p>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -325,21 +289,11 @@
     <script>
         // --- MUSOU ISSHIN LOADER LOGIC ---
         window.addEventListener('load', () => {
-            const loaderTxt = document.getElementById('loader-txt');
-            
-            // Ganti teks pas pedang menebas
-            setTimeout(() => {
-                loaderTxt.innerHTML = "Awakening Cryo...";
-                loaderTxt.style.color = "var(--cryo-glow)";
-                loaderTxt.style.textShadow = "0 0 15px var(--cryo-main)";
-            }, 800);
-
-            // Sembunyikan loader
             setTimeout(() => {
                 const loader = document.getElementById('musou-loader');
                 loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 800);
-            }, 1800);
+                setTimeout(() => { loader.style.display = 'none'; }, 1000);
+            }, 2700); // 2.7 detik animasi slash & cryo
         });
 
         // --- TAB SWITCH LOGIC ---
@@ -356,11 +310,50 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // --- ETERNITY CRYO PARTICLES ANIMATION ---
+        // --- ETERNITY-CRYO CANVAS ANIMATION ---
         const canvas = document.getElementById('eternity-canvas');
         const ctx = canvas.getContext('2d');
         
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
 
-        wi
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * width, 
+                y: Math.random() * height,
+                opacity: Math.random() * 0.8 + 0.2,
+                speedX: (Math.random() - 0.5) * 1.5,
+                speedY: Math.random() * 2 + 0.5,
+                radius: Math.random() * 2 + 0.5,
+                color: Math.random() > 0.4 ? "rgba(184, 41, 255," : "rgba(122, 193, 240," // Campuran Ungu & Biru
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                ctx.fillStyle = p.color + p.opacity + ")";
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, true);
+                ctx.fill();
+                
+                p.x += p.speedX; 
+                p.y += p.speedY;
+                if (p.y > height) { 
+                    p.x = Math.random() * width; 
+                    p.y = 0; 
+                }
+            }
+        }
+        setInterval(drawParticles, 30);
+    </script>
+</body>
+    </html>
+    
