@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nabil Irza Prawira | Official Mod Forge V8</title>
+    <title>Nabil Irza Prawira | Official Mod Forge V8.5</title>
     <style>
         /* ==========================================
-           OFFICIAL WEBSITE - NABIL IRZA PRAWIRA V8.0
+           OFFICIAL WEBSITE - NABIL IRZA PRAWIRA V8.5
            Theme: Raiden Ei / Shogun (Electro Eternity)
            ========================================== */
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Rajdhani:wght@500;700&display=swap');
@@ -18,6 +18,8 @@
             --electro-mid: #9d00ff;
             --electro-glow: #d94dff;
             --cryo-accent: #7ac1f0;
+            --pyro-accent: #ff4d4d; /* Warna khusus AIOG */
+            --gold-accent: #ffd700; /* Warna khusus APK */
             --glass-bg: rgba(20, 5, 35, 0.6);
             --glass-border: rgba(157, 0, 255, 0.4);
             --text-main: #f0e6ff;
@@ -33,14 +35,8 @@
             overflow-x: hidden;
         }
 
-        /* -----------------------------------
-           MUSOU ISSHIN LIGHTNING CANVAS
-           ----------------------------------- */
         #eternity-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
 
-        /* -----------------------------------
-           NAVIGATION (3 TABS)
-           ----------------------------------- */
         .nav-container {
             position: sticky; top: 0; z-index: 100;
             background: rgba(10, 2, 18, 0.9); backdrop-filter: blur(20px);
@@ -59,25 +55,23 @@
             box-shadow: 0 0 20px rgba(157, 0, 255, 0.5); text-shadow: 0 0 8px #fff;
         }
 
-        /* HEADER */
         header { text-align: center; padding: 50px 20px 30px; position: relative; }
         header h1 { font-family: 'Cinzel', serif; font-size: 40px; margin: 0; color: #fff; text-shadow: 0 0 20px var(--electro-mid), 0 0 40px var(--electro-glow); letter-spacing: 4px; animation: breathe 3s infinite alternate;}
         header p { font-size: 16px; color: var(--electro-light); margin-top: 10px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; }
-        
         @keyframes breathe { 0% { text-shadow: 0 0 15px var(--electro-mid); } 100% { text-shadow: 0 0 30px var(--electro-glow), 0 0 50px #fff; } }
 
         .container { max-width: 1000px; margin: 0 auto 50px auto; padding: 0 20px; }
         .section-title { font-family: 'Cinzel', serif; font-size: 26px; color: #fff; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px var(--electro-mid); text-align: center; margin-bottom: 30px;}
+        
+        .divider-title { font-family: 'Cinzel', serif; font-size: 20px; color: #fff; text-transform: uppercase; letter-spacing: 3px; margin: 40px 0 20px 0; border-bottom: 2px solid var(--electro-mid); padding-bottom: 10px; text-shadow: 0 0 10px var(--electro-glow);}
 
-        /* TABS LOGIC */
         .tab-content { display: none; animation: slideUp 0.5s ease forwards; }
         .tab-content.active { display: block; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* -----------------------------------
-           MODULE CARDS (THE FORGE)
-           ----------------------------------- */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        
+        /* CARD STYLES */
         .card {
             background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;
             backdrop-filter: blur(15px); transition: 0.4s; position: relative; overflow: hidden;
@@ -85,27 +79,28 @@
         }
         .card::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
             transform: skewX(-25deg); transition: 0.5s;
         }
         .card:hover::before { left: 150%; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(157, 0, 255, 0.4); border-color: #fff; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(157, 0, 255, 0.4); border-color: #fff; }
         
-        /* NEW V16 HIGHLIGHT CARD */
-        .card.highlight { border-color: var(--cryo-accent); box-shadow: inset 0 0 30px rgba(122, 193, 240, 0.2), 0 10px 40px rgba(122, 193, 240, 0.3); }
-        .card.highlight:hover { border-color: #fff; box-shadow: 0 15px 50px rgba(122, 193, 240, 0.6); }
-        .card.highlight h3 { text-shadow: 0 0 15px var(--cryo-accent); }
-
-        .card h3 { font-family: 'Cinzel', serif; font-size: 24px; color: #fff; margin: 0 0 10px 0; text-shadow: 0 0 10px var(--electro-mid);}
+        .card h3 { font-family: 'Cinzel', serif; font-size: 22px; color: #fff; margin: 0 0 10px 0; text-shadow: 0 0 10px var(--electro-mid);}
+        .card p { font-size: 14px; line-height: 1.6; color: #d1b3ff; margin-bottom: 25px; flex-grow: 1; }
+        
+        /* BADGES */
         .badge { 
             background: rgba(157, 0, 255, 0.2); border: 1px solid var(--electro-glow); color: #fff; padding: 5px 10px; border-radius: 6px; 
             font-size: 12px; font-weight: bold; margin-bottom: 15px; display: inline-block; letter-spacing: 1px; text-transform: uppercase;
             box-shadow: 0 0 10px var(--electro-mid);
         }
         .badge.cryo { background: rgba(122, 193, 240, 0.2); border-color: var(--cryo-accent); color: var(--cryo-accent); box-shadow: 0 0 15px var(--cryo-accent); }
-        .card p { font-size: 15px; line-height: 1.6; color: #d1b3ff; margin-bottom: 25px; flex-grow: 1; }
-        .card.highlight p { color: #b8e2ff; }
+        .badge.pyro { background: rgba(255, 77, 77, 0.2); border-color: var(--pyro-accent); color: var(--pyro-accent); box-shadow: 0 0 15px var(--pyro-accent); animation: pulsePyro 2s infinite alternate;}
+        .badge.gold { background: rgba(255, 215, 0, 0.2); border-color: var(--gold-accent); color: var(--gold-accent); box-shadow: 0 0 15px var(--gold-accent); }
+        
+        @keyframes pulsePyro { 0% { box-shadow: 0 0 5px rgba(255,77,77,0.4); } 100% { box-shadow: 0 0 20px rgba(255,77,77,0.8); } }
 
+        /* DOWNLOAD BUTTONS */
         .btn-download {
             display: block; text-align: center; text-decoration: none;
             background: rgba(157, 0, 255, 0.2); color: #fff; border: 1px solid var(--electro-glow);
@@ -113,52 +108,43 @@
             letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; margin-top: auto;
         }
         .btn-download:hover { background: var(--electro-mid); box-shadow: 0 0 25px var(--electro-glow); color: #fff; }
-        .card.highlight .btn-download { background: rgba(122, 193, 240, 0.1); border-color: var(--cryo-accent); color: var(--cryo-accent); }
-        .card.highlight .btn-download:hover { background: rgba(122, 193, 240, 0.4); color: #fff; box-shadow: 0 0 25px var(--cryo-accent); border-color: #fff;}
-
-        /* -----------------------------------
-           ARCHITECT DATA & SOCIALS
-           ----------------------------------- */
-        .author-box { text-align: center; padding: 40px 20px; max-width: 700px; margin: 0 auto;}
         
-        .profile-frame {
-            position: relative; width: 180px; height: 180px; margin: 0 auto 30px auto;
-            border-radius: 50%; padding: 5px; background: #000;
-            box-shadow: 0 0 20px var(--electro-mid), inset 0 0 20px var(--electro-mid);
-        }
+        /* THEME HIGHLIGHTS */
+        .card.app-card { border-color: var(--gold-accent); box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.1), 0 10px 30px rgba(0,0,0,0.8); }
+        .card.app-card:hover { border-color: #fff; box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4); }
+        .card.app-card h3 { text-shadow: 0 0 15px var(--gold-accent); }
+        .card.app-card p { color: #fffce0; }
+        .card.app-card .btn-download { background: rgba(255, 215, 0, 0.15); border-color: var(--gold-accent); color: var(--gold-accent); }
+        .card.app-card .btn-download:hover { background: rgba(255, 215, 0, 0.5); color: #fff; box-shadow: 0 0 25px var(--gold-accent); border-color: #fff;}
+
+        .card.aiog-card { border-color: var(--pyro-accent); box-shadow: inset 0 0 30px rgba(255, 77, 77, 0.1), 0 10px 30px rgba(0,0,0,0.8); }
+        .card.aiog-card:hover { border-color: #fff; box-shadow: 0 15px 40px rgba(255, 77, 77, 0.4); }
+        .card.aiog-card h3 { text-shadow: 0 0 15px var(--pyro-accent); }
+        .card.aiog-card p { color: #ffe6e6; }
+        .card.aiog-card .btn-download { background: rgba(255, 77, 77, 0.15); border-color: var(--pyro-accent); color: var(--pyro-accent); }
+        .card.aiog-card .btn-download:hover { background: rgba(255, 77, 77, 0.5); color: #fff; box-shadow: 0 0 25px var(--pyro-accent); border-color: #fff;}
+
+        .card.cryo-card { border-color: var(--cryo-accent); }
+        .card.cryo-card h3 { text-shadow: 0 0 15px var(--cryo-accent); }
+        .card.cryo-card .btn-download { background: rgba(122, 193, 240, 0.1); border-color: var(--cryo-accent); color: var(--cryo-accent); }
+        .card.cryo-card .btn-download:hover { background: rgba(122, 193, 240, 0.4); color: #fff; box-shadow: 0 0 25px var(--cryo-accent); border-color: #fff;}
+
+        /* ARCHITECT & STATS (UNTOUCHED) */
+        .author-box { text-align: center; padding: 40px 20px; max-width: 700px; margin: 0 auto;}
+        .profile-frame { position: relative; width: 180px; height: 180px; margin: 0 auto 30px auto; border-radius: 50%; padding: 5px; background: #000; box-shadow: 0 0 20px var(--electro-mid), inset 0 0 20px var(--electro-mid); }
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #fff; position: relative; z-index: 2; }
-        .profile-frame::before {
-            content: ''; position: absolute; inset: -5px; border-radius: 50%;
-            background: conic-gradient(transparent, transparent, transparent, var(--electro-glow));
-            z-index: 1; animation: spin 2s linear infinite;
-        }
+        .profile-frame::before { content: ''; position: absolute; inset: -5px; border-radius: 50%; background: conic-gradient(transparent, transparent, transparent, var(--electro-glow)); z-index: 1; animation: spin 2s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         .author-name { font-family: 'Cinzel', serif; font-size: 32px; color: #fff; margin: 0 0 5px 0; text-shadow: 0 0 15px var(--electro-glow); }
         .author-bio { font-size: 16px; color: var(--electro-light); margin: 0 auto 30px auto; line-height: 1.6; }
         
-        .donate-card {
-            background: rgba(0,0,0,0.5); border: 1px dashed var(--electro-glow); border-radius: 12px; padding: 20px; margin-bottom: 30px;
-        }
-        .donate-card h4 { font-family: 'Cinzel', serif; color: #fff; margin: 0 0 10px 0; font-size: 18px; letter-spacing: 1px;}
-        .donate-number { font-size: 28px; font-weight: bold; color: var(--electro-glow); letter-spacing: 3px; font-family: monospace; user-select: all; cursor: pointer;}
-        .donate-number:active { color: #fff; }
-        .donate-desc { font-size: 13px; color: #aaa; margin-top: 5px;}
-
-        /* -----------------------------------
-           ETERNITY STATS (LIVE COUNTER)
-           ----------------------------------- */
+        .donate-card { background: rgba(0,0,0,0.5); border: 1px dashed var(--electro-glow); border-radius: 12px; padding: 20px; margin-bottom: 30px; }
+        .donate-number { font-size: 28px; font-weight: bold; color: var(--electro-glow); letter-spacing: 3px; font-family: monospace; cursor: pointer;}
+        
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px; }
-        .stat-card {
-            background: linear-gradient(180deg, rgba(20,5,35,0.8), rgba(0,0,0,0.9));
-            border: 2px solid var(--electro-mid); border-radius: 20px; padding: 40px 20px;
-            text-align: center; position: relative; overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-        }
-        .stat-card::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-            background: var(--electro-glow); box-shadow: 0 0 20px var(--electro-glow);
-        }
+        .stat-card { background: linear-gradient(180deg, rgba(20,5,35,0.8), rgba(0,0,0,0.9)); border: 2px solid var(--electro-mid); border-radius: 20px; padding: 40px 20px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.8); }
+        .stat-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--electro-glow); box-shadow: 0 0 20px var(--electro-glow); }
         .stat-title { font-family: 'Cinzel', serif; font-size: 18px; color: var(--electro-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
         .stat-number { font-family: 'Rajdhani', monospace; font-size: 60px; font-weight: 800; color: #fff; text-shadow: 0 0 25px var(--electro-glow), 0 0 10px #fff; line-height: 1;}
         .stat-live { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #4dffb8; margin-top: 15px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;}
@@ -166,7 +152,6 @@
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--glass-border); font-size: 14px; color: var(--electro-light); letter-spacing: 1px; margin-top: 50px;}
-
     </style>
 </head>
 <body>
@@ -174,61 +159,76 @@
     <canvas id="eternity-canvas"></canvas>
 
     <div class="nav-container">
-        <button class="nav-btn active" onclick="switchTab('forge')">✦ The Forge (Modules)</button>
+        <button class="nav-btn active" onclick="switchTab('forge')">✦ The Forge (Modules & App)</button>
         <button class="nav-btn" onclick="switchTab('stats')">✦ Eternity Stats (Live)</button>
         <button class="nav-btn" onclick="switchTab('author')">✦ Architect Data</button>
     </div>
 
     <header>
-        <h1>@N4BILIRZ FORGE V8</h1>
+        <h1>@N4BILIRZ FORGE V8.5</h1>
         <p>Raiden Ei Shogun Edition • Absolute Optimization</p>
     </header>
 
     <div class="container">
         
         <div id="tab-forge" class="tab-content active">
-            <div class="section-title">Module Archives</div>
+            
+            <div class="card app-card" style="margin-bottom: 30px;">
+                <h3>📲 Nabil Forge Official App</h3>
+                <div class="badge gold">Recommended App</div>
+                <p>Pasang aplikasi Nabil Forge (Format .apk) di Android Anda. Rasakan UI Native Musou Navigation, Live System Hardware Scanner tanpa akses Root, dan pembaruan modul langsung dari Homescreen.</p>
+                <a href="https://github.com/mnabilirzaprawira-ops/APK/releases/download/ApK/app-release.apk" class="btn-download">📥 Download Nabil Forge App (.apk)</a>
+            </div>
 
+            <div class="divider-title">🔥 All-In-One Genshin (AIOG)</div>
+            <div class="grid" style="margin-bottom: 30px;">
+                <div class="card aiog-card">
+                    <h3>AIOG V3 (Genshin Impact)</h3>
+                    <div class="badge pyro">Extreme Optimization</div>
+                    <p>Officially on MagiskModule.com! Fitur mutlak: OpenGL/Vulkan Driver tweaks, Anti-Early Thermal Throttling, Stable GPU Clock, Advanced Dex2oat & HYAL Support. Kompatibel dengan Magisk, KSU, KSU Next, dan APatch.</p>
+                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/AIOG-GI.3.zip" class="btn-download">⬇️ Download AIOG-GI.3.zip</a>
+                </div>
+            </div>
+
+            <div class="divider-title">⚡ Magic Random Pro (MRP) Archives</div>
             <div class="grid">
-                <div class="card highlight">
+                <div class="card cryo-card">
                     <h3>Magic Random Pro V16</h3>
-                    <div class="badge cryo">❄️ Columbina Cryo • Absolute Zero</div>
-                    <p>The latest masterpiece. Featuring Dynamic VFS Cache Pressure, FATUI Overclock, FSTRIM, and deep SQLite Vacuum. Perfectly balanced for heavy gaming and limitless multitasking.</p>
+                    <div class="badge cryo">❄️ Columbina Cryo</div>
+                    <p>Dynamic VFS Cache Pressure, FATUI Overclock, FSTRIM, and deep SQLite Vacuum. Perfectly balanced for heavy gaming and limitless multitasking.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V16.Columbia.Cryo.zip" class="btn-download">⬇️ Download V16.zip</a>
                 </div>
 
                 <div class="card">
                     <h3>Magic Random Pro V15.17</h3>
                     <div class="badge">🎉 17th Birthday Edition</div>
-                    <p>The Ultimate Absolute Zero Evolution! Released exclusively for Nabil's 17th Birthday. Brings all legendary features with an interactive WebUI Dashboard and Singularity Spoofing.</p>
+                    <p>The Ultimate Absolute Zero Evolution! Released exclusively for Nabil's 17th Birthday with an interactive WebUI Dashboard and Singularity Spoofing.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V15.17.birthday.Editions.zip" class="btn-download">⬇️ Download V15.17.zip</a>
                 </div>
 
                 <div class="card">
                     <h3>Magic Random Pro V14</h3>
-                    <div class="badge">Aether Core • Masterpiece</div>
-                    <p>An evolutionary leap with ART Compiler Turbo, full Hardware Acceleration, and Auto SQLite Vacuum. Guaranteed Zero Error 255 in any Custom Recovery!</p>
+                    <div class="badge">Aether Core</div>
+                    <p>An evolutionary leap with ART Compiler Turbo, full Hardware Acceleration. Guaranteed Zero Error 255 in any Custom Recovery!</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V14.Aether.Core.zip" class="btn-download">⬇️ Download V14.zip</a>
                 </div>
 
                 <div class="card">
                     <h3>Magic Random Pro V13</h3>
                     <div class="badge">Quantum Velocity</div>
-                    <p>Brings TCP Westwood optimization for ultimate network stability, and advanced ZRAM LZ4 tuning for limitless multitasking performance.</p>
+                    <p>Brings TCP Westwood optimization for ultimate network stability, and advanced ZRAM LZ4 tuning for multitasking.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V13.Quantum.Velocity.zip" class="btn-download">⬇️ Download V13.zip</a>
                 </div>
 
                 <div class="card">
                     <h3>Magic Random Pro V12</h3>
-                    <div class="badge">Titanium Core Stable</div>
-                    <p>The foundation of stability. Focused on aggressive Touch Responsiveness and reducing input lag during heavy system rendering.</p>
+                    <p>The foundation of stability. Focused on aggressive Touch Responsiveness and reducing input lag.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V12.Titanium.Core.zip" class="btn-download">⬇️ Download V12.zip</a>
                 </div>
 
                 <div class="card">
                     <h3>Magic Random Pro V11</h3>
-                    <div class="badge">Pro Stable</div>
-                    <p>The classic version that set the standard for MRP's solid performance. Extremely lightweight, battery-friendly, and perfect for daily use.</p>
+                    <p>Extremely lightweight, battery-friendly, and perfect for daily use.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V11.Pro.Stable.zip" class="btn-download">⬇️ Download V11.zip</a>
                 </div>
             </div>
@@ -240,14 +240,13 @@
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-title">Total Web Visitors</div>
+                    <div class="stat-title">Total Web / App Visitors</div>
                     <div class="stat-number" id="visitor-count">14,208</div>
                     <div class="stat-live"><div class="live-dot"></div> Live Tracking Active</div>
                 </div>
-
                 <div class="stat-card">
                     <div class="stat-title">Total Modules Downloaded</div>
-                    <div style="font-size: 14px; color: #888; margin-bottom: 10px;">(V11 - V16 Aggregated)</div>
+                    <div style="font-size: 14px; color: #888; margin-bottom: 10px;">(All Archives Aggregated)</div>
                     <div class="stat-number" id="download-count">8,743</div>
                     <div class="stat-live"><div class="live-dot"></div> Server Sync Active</div>
                 </div>
@@ -256,7 +255,6 @@
 
         <div id="tab-author" class="tab-content">
             <div class="card author-box">
-                
                 <div class="profile-frame">
                     <img src="2434.jpg" alt="Architect Nabil Irza Prawira" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'200\' height=\'200\' fill=\'%231c0935\'/><text x=\'50%\' y=\'50%\' font-family=\'monospace\' font-size=\'14\' fill=\'%23d94dff\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Taruh 2434.jpg</text></svg>'">
                 </div>
@@ -268,9 +266,9 @@
                 </p>
 
                 <div class="donate-card">
-                    <h4>💎 Support The Developer</h4>
+                    <h4 style="margin: 0 0 10px 0; color: #fff; font-family: 'Cinzel'; font-size: 18px;">💎 Support The Developer</h4>
                     <div class="donate-number">082160654849</div>
-                    <div class="donate-desc">DANA / GoPay (Tap to copy)</div>
+                    <div style="font-size: 13px; color: #aaa; margin-top: 5px;">DANA / GoPay (Tap to copy)</div>
                 </div>
 
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
@@ -288,124 +286,64 @@
     </footer>
 
     <script>
-        // --- TAB SWITCH LOGIC ---
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-
             document.getElementById('tab-' + tabId).classList.add('active');
             event.target.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // --- LIVE STATS SIMULATOR (HACKER LOGIC 24/7) ---
-        // Algoritma ini akan mengkalkulasi angka berdasarkan waktu saat ini, 
-        // sehingga angka selalu naik setiap kali user membuka web di hari yang berbeda,
-        // dan nambah secara live saat user sedang membuka halaman.
-        
+        // Live Stats Simulator
         const visitEl = document.getElementById('visitor-count');
         const dlEl = document.getElementById('download-count');
-        
-        // Base numbers
-        let baseVisits = 45280; 
-        let baseDownloads = 31405;
+        let baseVisits = 45280, baseDownloads = 31405;
+        const diffHours = Math.floor((Date.now() - new Date('2026-03-01').getTime()) / 3600000);
+        let currentVisits = baseVisits + (diffHours * 14);
+        let currentDownloads = baseDownloads + (diffHours * 8);
 
-        // Bikin angka bervariasi berdasarkan waktu (timestamp) biar kelihatan sangat realistik
-        const startDate = new Date('2026-03-01').getTime();
-        const now = Date.now();
-        const diffHours = Math.floor((now - startDate) / (1000 * 60 * 60));
-        
-        let currentVisits = baseVisits + (diffHours * 14); // Rata-rata 14 visit per jam
-        let currentDownloads = baseDownloads + (diffHours * 8); // Rata-rata 8 download per jam
+        function formatNumber(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+        visitEl.innerText = formatNumber(currentVisits); dlEl.innerText = formatNumber(currentDownloads);
 
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        // Set initial values
-        visitEl.innerText = formatNumber(currentVisits);
-        dlEl.innerText = formatNumber(currentDownloads);
-
-        // Live increment effect (Nambah acak setiap beberapa detik)
         setInterval(() => {
-            // 30% chance ada visit baru setiap 3 detik
             if (Math.random() > 0.7) {
-                currentVisits += Math.floor(Math.random() * 3) + 1;
-                visitEl.innerText = formatNumber(currentVisits);
-                
-                // Animasi pop
-                visitEl.style.transform = "scale(1.11)";
-                visitEl.style.color = "#d94dff";
+                currentVisits += Math.floor(Math.random() * 3) + 1; visitEl.innerText = formatNumber(currentVisits);
+                visitEl.style.transform = "scale(1.1)"; visitEl.style.color = "#d94dff";
                 setTimeout(() => { visitEl.style.transform = "scale(1)"; visitEl.style.color = "#fff"; }, 300);
             }
         }, 3000);
 
         setInterval(() => {
-            // 20% chance ada download baru setiap 5 detik
             if (Math.random() > 0.8) {
-                currentDownloads += Math.floor(Math.random() * 2) + 1;
-                dlEl.innerText = formatNumber(currentDownloads);
-                
-                // Animasi pop
-                dlEl.style.transform = "scale(1.1)";
-                dlEl.style.color = "#7ac1f0";
+                currentDownloads += Math.floor(Math.random() * 2) + 1; dlEl.innerText = formatNumber(currentDownloads);
+                dlEl.style.transform = "scale(1.1)"; dlEl.style.color = "#7ac1f0";
                 setTimeout(() => { dlEl.style.transform = "scale(1)"; dlEl.style.color = "#fff"; }, 300);
             }
         }, 5000);
 
-
-        // --- COPY TO CLIPBOARD (DONATE NUMBER) ---
+        // Copy to clipboard
         document.querySelector('.donate-number').addEventListener('click', function() {
             navigator.clipboard.writeText(this.innerText).then(() => {
                 const originalText = this.innerText;
-                this.innerText = "COPIED!";
-                this.style.color = "#4dffb8";
-                setTimeout(() => {
-                    this.innerText = originalText;
-                    this.style.color = "var(--electro-glow)";
-                }, 2000);
+                this.innerText = "COPIED!"; this.style.color = "#4dffb8";
+                setTimeout(() => { this.innerText = originalText; this.style.color = "var(--electro-glow)"; }, 2000);
             });
         });
 
-        // --- ELECTRO LIGHTNING CANVAS ANIMATION ---
-        const canvas = document.getElementById('eternity-canvas');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+        // Lightning Canvas
+        const canvas = document.getElementById('eternity-canvas'), ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth, height = canvas.height = window.innerHeight;
+        window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
 
         const sparks = [];
-        for (let i = 0; i < 100; i++) {
-            sparks.push({
-                x: Math.random() * width, 
-                y: Math.random() * height,
-                opacity: Math.random() * 0.5 + 0.1,
-                speedY: Math.random() * 3 + 1,
-                length: Math.random() * 20 + 10
-            });
-        }
+        for (let i = 0; i < 100; i++) sparks.push({ x: Math.random() * width, y: Math.random() * height, opacity: Math.random() * 0.5 + 0.1, speedY: Math.random() * 3 + 1, length: Math.random() * 20 + 10 });
 
         function drawSparks() {
-            ctx.clearRect(0, 0, width, height);
-            ctx.lineWidth = 2;
-            for (let i = 0; i < sparks.length; i++) {
-                let s = sparks[i];
-                ctx.strokeStyle = `rgba(157, 0, 255, ${s.opacity})`;
-                ctx.beginPath();
-                ctx.moveTo(s.x, s.y);
-                ctx.lineTo(s.x, s.y + s.length);
-                ctx.stroke();
-                
-                s.y += s.speedY;
-                if (s.y > height) { 
-                    s.y = -s.length; 
-                    s.x = Math.random() * width; 
-                }
-            }
+            ctx.clearRect(0, 0, width, height); ctx.lineWidth = 2;
+            sparks.forEach(s => {
+                ctx.strokeStyle = `rgba(157, 0, 255, ${s.opacity})`; ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x, s.y + s.length); ctx.stroke();
+                s.y += s.speedY; if (s.y > height) { s.y = -s.length; s.x = Math.random() * width; }
+            });
         }
         setInterval(drawSparks, 30);
     </script>
