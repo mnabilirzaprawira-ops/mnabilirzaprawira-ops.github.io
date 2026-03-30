@@ -18,8 +18,8 @@
             --electro-mid: #9d00ff;
             --electro-glow: #d94dff;
             --cryo-accent: #7ac1f0;
-            --pyro-accent: #ff4d4d; /* Warna khusus AIOG */
-            --gold-accent: #ffd700; /* Warna khusus APK */
+            --pyro-accent: #ff4d4d;
+            --gold-accent: #ffd700;
             --glass-bg: rgba(20, 5, 35, 0.6);
             --glass-border: rgba(157, 0, 255, 0.4);
             --text-main: #f0e6ff;
@@ -71,7 +71,6 @@
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         
-        /* CARD STYLES */
         .card {
             background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 25px;
             backdrop-filter: blur(15px); transition: 0.4s; position: relative; overflow: hidden;
@@ -88,7 +87,6 @@
         .card h3 { font-family: 'Cinzel', serif; font-size: 22px; color: #fff; margin: 0 0 10px 0; text-shadow: 0 0 10px var(--electro-mid);}
         .card p { font-size: 14px; line-height: 1.6; color: #d1b3ff; margin-bottom: 25px; flex-grow: 1; }
         
-        /* BADGES */
         .badge { 
             background: rgba(157, 0, 255, 0.2); border: 1px solid var(--electro-glow); color: #fff; padding: 5px 10px; border-radius: 6px; 
             font-size: 12px; font-weight: bold; margin-bottom: 15px; display: inline-block; letter-spacing: 1px; text-transform: uppercase;
@@ -100,7 +98,6 @@
         
         @keyframes pulsePyro { 0% { box-shadow: 0 0 5px rgba(255,77,77,0.4); } 100% { box-shadow: 0 0 20px rgba(255,77,77,0.8); } }
 
-        /* DOWNLOAD BUTTONS */
         .btn-download {
             display: block; text-align: center; text-decoration: none;
             background: rgba(157, 0, 255, 0.2); color: #fff; border: 1px solid var(--electro-glow);
@@ -109,7 +106,6 @@
         }
         .btn-download:hover { background: var(--electro-mid); box-shadow: 0 0 25px var(--electro-glow); color: #fff; }
         
-        /* THEME HIGHLIGHTS */
         .card.app-card { border-color: var(--gold-accent); box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.1), 0 10px 30px rgba(0,0,0,0.8); }
         .card.app-card:hover { border-color: #fff; box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4); }
         .card.app-card h3 { text-shadow: 0 0 15px var(--gold-accent); }
@@ -129,7 +125,6 @@
         .card.cryo-card .btn-download { background: rgba(122, 193, 240, 0.1); border-color: var(--cryo-accent); color: var(--cryo-accent); }
         .card.cryo-card .btn-download:hover { background: rgba(122, 193, 240, 0.4); color: #fff; box-shadow: 0 0 25px var(--cryo-accent); border-color: #fff;}
 
-        /* ARCHITECT & STATS (UNTOUCHED) */
         .author-box { text-align: center; padding: 40px 20px; max-width: 700px; margin: 0 auto;}
         .profile-frame { position: relative; width: 180px; height: 180px; margin: 0 auto 30px auto; border-radius: 50%; padding: 5px; background: #000; box-shadow: 0 0 20px var(--electro-mid), inset 0 0 20px var(--electro-mid); }
         .profile-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #fff; position: relative; z-index: 2; }
@@ -176,7 +171,7 @@
             <div class="card app-card" style="margin-bottom: 30px;">
                 <h3>📲 Nabil Forge Official App</h3>
                 <div class="badge gold">Recommended App</div>
-                <p>Pasang aplikasi Nabil Forge (Format .apk) di Android Anda. Rasakan UI Native Musou Navigation, Live System Hardware Scanner tanpa akses Root, dan pembaruan modul langsung dari Homescreen.</p>
+                <p>Install the Nabil Forge app (.apk) on your Android. Experience Native Musou Navigation, Live Hardware Scanner without Root access, and direct module updates right from your Homescreen.</p>
                 <a href="https://github.com/mnabilirzaprawira-ops/APK/releases/download/ApK/app-release.apk" class="btn-download">📥 Download Nabil Forge App (.apk)</a>
             </div>
 
@@ -185,7 +180,7 @@
                 <div class="card aiog-card">
                     <h3>AIOG V3 (Genshin Impact)</h3>
                     <div class="badge pyro">Extreme Optimization</div>
-                    <p>Officially on MagiskModule.com! Fitur mutlak: OpenGL/Vulkan Driver tweaks, Anti-Early Thermal Throttling, Stable GPU Clock, Advanced Dex2oat & HYAL Support. Kompatibel dengan Magisk, KSU, KSU Next, dan APatch.</p>
+                    <p>Officially featured on MagiskModule.com! Absolute enhancements: OpenGL/Vulkan Driver tweaks, Anti-Early Thermal Throttling, Stable GPU Clock, Advanced Dex2oat & HYAL Support. Compatible with Magisk, KSU, KSU Next, and APatch.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/AIOG-GI.3.zip" class="btn-download">⬇️ Download AIOG-GI.3.zip</a>
                 </div>
             </div>
@@ -195,7 +190,7 @@
                 <div class="card cryo-card">
                     <h3>Magic Random Pro V16</h3>
                     <div class="badge cryo">❄️ Columbina Cryo</div>
-                    <p>Dynamic VFS Cache Pressure, FATUI Overclock, FSTRIM, and deep SQLite Vacuum. Perfectly balanced for heavy gaming and limitless multitasking.</p>
+                    <p>Dynamic VFS Cache Pressure, FATUI Overclock, FSTRIM, and deep SQLite Vacuum. Perfectly balanced for heavy gaming and limitless multitasking capabilities.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V16.Columbia.Cryo.zip" class="btn-download">⬇️ Download V16.zip</a>
                 </div>
 
@@ -209,26 +204,26 @@
                 <div class="card">
                     <h3>Magic Random Pro V14</h3>
                     <div class="badge">Aether Core</div>
-                    <p>An evolutionary leap with ART Compiler Turbo, full Hardware Acceleration. Guaranteed Zero Error 255 in any Custom Recovery!</p>
+                    <p>An evolutionary leap with ART Compiler Turbo and full Hardware Acceleration. Guaranteed Zero Error 255 in any Custom Recovery!</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V14.Aether.Core.zip" class="btn-download">⬇️ Download V14.zip</a>
                 </div>
 
                 <div class="card">
                     <h3>Magic Random Pro V13</h3>
                     <div class="badge">Quantum Velocity</div>
-                    <p>Brings TCP Westwood optimization for ultimate network stability, and advanced ZRAM LZ4 tuning for multitasking.</p>
+                    <p>Brings TCP Westwood optimization for ultimate network stability, alongside advanced ZRAM LZ4 tuning for seamless multitasking.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V13.Quantum.Velocity.zip" class="btn-download">⬇️ Download V13.zip</a>
                 </div>
 
                 <div class="card">
                     <h3>Magic Random Pro V12</h3>
-                    <p>The foundation of stability. Focused on aggressive Touch Responsiveness and reducing input lag.</p>
+                    <p>The true foundation of stability. Heavily focused on aggressive Touch Responsiveness and reducing input latency.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V12.Titanium.Core.zip" class="btn-download">⬇️ Download V12.zip</a>
                 </div>
 
                 <div class="card">
                     <h3>Magic Random Pro V11</h3>
-                    <p>Extremely lightweight, battery-friendly, and perfect for daily use.</p>
+                    <p>Extremely lightweight, highly battery-friendly, and perfectly designed for casual daily usage.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V11.Pro.Stable.zip" class="btn-download">⬇️ Download V11.zip</a>
                 </div>
             </div>
@@ -236,7 +231,7 @@
 
         <div id="tab-stats" class="tab-content">
             <div class="section-title">Eternity Live Stats</div>
-            <p style="text-align: center; color: var(--electro-light);">Monitoring global activity of Nabil Forge Modules across all Android Devices. Data is synced in real-time 24/7.</p>
+            <p style="text-align: center; color: var(--electro-light);">Monitoring global activity of Nabil Forge Modules across all Android Devices. Data is synchronized in real-time 24/7.</p>
             
             <div class="stats-grid">
                 <div class="stat-card">
@@ -256,7 +251,7 @@
         <div id="tab-author" class="tab-content">
             <div class="card author-box">
                 <div class="profile-frame">
-                    <img src="2434.jpg" alt="Architect Nabil Irza Prawira" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'200\' height=\'200\' fill=\'%231c0935\'/><text x=\'50%\' y=\'50%\' font-family=\'monospace\' font-size=\'14\' fill=\'%23d94dff\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Taruh 2434.jpg</text></svg>'">
+                    <img src="2434.jpg" alt="Architect Nabil Irza Prawira" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\'><rect width=\'200\' height=\'200\' fill=\'%231c0935\'/><text x=\'50%\' y=\'50%\' font-family=\'monospace\' font-size=\'14\' fill=\'%23d94dff\' text-anchor=\'middle\' dominant-baseline=\'middle\'>Image 2434.jpg</text></svg>'">
                 </div>
 
                 <h2 class="author-name">Muhammad Nabil Irza Prawira</h2>
@@ -294,7 +289,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Live Stats Simulator
         const visitEl = document.getElementById('visitor-count');
         const dlEl = document.getElementById('download-count');
         let baseVisits = 45280, baseDownloads = 31405;
@@ -321,7 +315,6 @@
             }
         }, 5000);
 
-        // Copy to clipboard
         document.querySelector('.donate-number').addEventListener('click', function() {
             navigator.clipboard.writeText(this.innerText).then(() => {
                 const originalText = this.innerText;
@@ -330,7 +323,6 @@
             });
         });
 
-        // Lightning Canvas
         const canvas = document.getElementById('eternity-canvas'), ctx = canvas.getContext('2d');
         let width = canvas.width = window.innerWidth, height = canvas.height = window.innerHeight;
         window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
